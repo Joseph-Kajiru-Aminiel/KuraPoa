@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    body {
+        @apply bg-page font-sans text-body antialiased;
+    }
+
+    :focus-visible {
+        @apply outline-none ring-2 ring-primary ring-offset-2;
+    }
+}
+
+[data-reveal] {
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.auth-card {
+    box-shadow: 8px 8px 0 #0B3D2E;
+}
+
+.safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@keyframes auth-card-nudge {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes receipt-check-pop {
+    0% { opacity: 0; transform: scale(0.7); }
+    75% { opacity: 1; transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-auth-card-nudge {
+    animation: auth-card-nudge 300ms ease-in-out;
+}
+
+.animate-receipt-check-pop {
+    animation: receipt-check-pop 420ms ease-out both;
+}
+
+.motion-ready [data-reveal]:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+@media print {
+    @page {
+        margin: 14mm;
+    }
+
+    body {
+        background: #FFFFFF !important;
+        color: #0F172A !important;
+    }
+
+    .auth-card {
+        box-shadow: none !important;
+    }
+
+    .shadow-soft,
+    .shadow-soft-hover {
+        box-shadow: none !important;
+    }
+}
+
+@media (max-width: 639px) {
+    .auth-card {
+        box-shadow: 5px 5px 0 #0B3D2E;
+    }
+}
